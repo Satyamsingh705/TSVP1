@@ -8,6 +8,7 @@
   --accent: #e4b43c;
   --light: #f8f9fa;
   --dark: #343a40;
+  --helvetica-font: 'HelveticaNeue', Helvetica, Arial, sans-serif;
 }
 
 @font-face {
@@ -157,4 +158,9 @@
 * {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+}
+
+/* Add this force class to ensure HelveticaNeue is applied wherever needed */
+.force-helvetica {
+  font-family: 'HelveticaNeue', Helvetica, Arial, sans-serif !important;
 }

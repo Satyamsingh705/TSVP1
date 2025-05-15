@@ -141,13 +141,13 @@ const Header: React.FC = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
-            <NavLink to="/" className={({isActive}) => `text-white text-[18px] font-body ${isActive ? 'font-medium' : ''}`}>
+            <NavLink to="/" className={({isActive}) => `text-white text-[17px] font-body ${isActive ? 'font-medium' : ''}`}>
               Home
             </NavLink>
             
             <div className="relative group">
               <button 
-                className="text-white text-[18px] font-body flex items-center group"
+                className="text-white text-[17px] font-body flex items-center group"
               >
                 About
               </button>
@@ -157,6 +157,7 @@ const Header: React.FC = () => {
                   to="/about" 
                   className="block px-[10px] py-[10px] text-white hover:bg-[#4c58b5] transition-colors font-helveticaNeue text-[17px]"
                   onClick={closeMenu}
+                  style={{ fontFamily: "HelveticaNeue, Helvetica, Arial, sans-serif !important" }}
                 >
                   Overview
                 </Link>
@@ -164,6 +165,7 @@ const Header: React.FC = () => {
                   to="/about#mission-vision" 
                   className="block px-[10px] py-[10px] text-white hover:bg-[#4c58b5] transition-colors font-helveticaNeue text-[17px]"
                   onClick={() => handleAnchorClick('#mission-vision')}
+                  style={{ fontFamily: "HelveticaNeue, Helvetica, Arial, sans-serif !important" }}
                 >
                   Mission & Vision
                 </Link>
@@ -171,27 +173,28 @@ const Header: React.FC = () => {
                   to="/about#leadership" 
                   className="block px-[10px] py-[10px] text-white hover:bg-[#4c58b5] transition-colors font-helveticaNeue text-[17px]"
                   onClick={() => handleAnchorClick('#leadership')}
+                  style={{ fontFamily: "HelveticaNeue, Helvetica, Arial, sans-serif !important" }}
                 >
                   Leadership
                 </Link>
               </div>
             </div>
             
-            <NavLink to="/academics" className={({isActive}) => `text-white text-[18px] font-body ${isActive ? 'font-medium' : ''}`}>
+            <NavLink to="/academics" className={({isActive}) => `text-white text-[17px] font-body ${isActive ? 'font-medium' : ''}`}>
               Academics
             </NavLink>
             
-            <NavLink to="/admissions" className={({isActive}) => `text-white text-[18px] font-body ${isActive ? 'font-medium' : ''}`}>
+            <NavLink to="/admissions" className={({isActive}) => `text-white text-[17px] font-body ${isActive ? 'font-medium' : ''}`}>
               Admissions
             </NavLink>
             
-            <NavLink to="/campus" className={({isActive}) => `text-white text-[18px] font-body ${isActive ? 'font-medium' : ''}`}>
+            <NavLink to="/campus" className={({isActive}) => `text-white text-[17px] font-body ${isActive ? 'font-medium' : ''}`}>
               Campus
             </NavLink>
             
             <div className="relative group">
               <button 
-                className="text-white text-[18px] font-body flex items-center group"
+                className="text-white text-[17px] font-body flex items-center group"
               >
                 Branches
               </button>
@@ -201,6 +204,7 @@ const Header: React.FC = () => {
                   to="/branches/bakhri" 
                   className="block px-[10px] py-[10px] text-white hover:bg-[#4c58b5] transition-colors font-helveticaNeue text-[17px]"
                   onClick={closeMenu}
+                  style={{ fontFamily: "HelveticaNeue, Helvetica, Arial, sans-serif !important" }}
                 >
                   Bakhri (Main)
                 </NavLink>
@@ -208,17 +212,18 @@ const Header: React.FC = () => {
                   to="/branches/begusarai" 
                   className="block px-[10px] py-[10px] text-white hover:bg-[#4c58b5] transition-colors font-helveticaNeue text-[17px]"
                   onClick={closeMenu}
+                  style={{ fontFamily: "HelveticaNeue, Helvetica, Arial, sans-serif !important" }}
                 >
                   Begusarai
                 </NavLink>
               </div>
             </div>
             
-            <NavLink to="/news-events" className={({isActive}) => `text-white text-[18px] font-body ${isActive ? 'font-medium' : ''}`}>
+            <NavLink to="/news-events" className={({isActive}) => `text-white text-[17px] font-body ${isActive ? 'font-medium' : ''}`}>
               News & Events
             </NavLink>
             
-            <NavLink to="/contact" className={({isActive}) => `text-white text-[18px] font-body ${isActive ? 'font-medium' : ''}`}>
+            <NavLink to="/contact" className={({isActive}) => `text-white text-[17px] font-body ${isActive ? 'font-medium' : ''}`}>
               Contact
             </NavLink>
           </div>
@@ -262,7 +267,7 @@ const Header: React.FC = () => {
           <div className="px-4 pb-6 space-y-4">
             <NavLink 
               to="/" 
-              className={({isActive}) => `block py-[12px] px-0 text-[18px] font-body border-b border-[#3f4aa3] ${isActive ? 'text-white font-medium' : 'text-white'}`}
+              className={({isActive}) => `block py-[10px] px-0 text-[17px] font-body border-b border-[#3f4aa3] ${isActive ? 'text-white font-medium' : 'text-white'}`}
               onClick={closeMenu}
             >
               Home
@@ -270,7 +275,7 @@ const Header: React.FC = () => {
             
             <div>
               <button
-                className="flex items-center justify-between w-full py-[12px] px-0 text-[18px] font-body border-b border-[#3f4aa3] text-white"
+                className="flex items-center justify-between w-full py-[10px] px-0 text-[17px] font-body border-b border-[#3f4aa3] text-white"
                 onClick={() => toggleMegaMenu('about-mobile')}
               >
                 <span>About</span>
@@ -285,6 +290,7 @@ const Header: React.FC = () => {
                   to="/about" 
                   className="block px-[10px] py-[10px] text-white hover:bg-[#4c58b5] transition-colors font-helveticaNeue text-[17px]"
                   onClick={closeMenu}
+                  style={{ fontFamily: "HelveticaNeue, Helvetica, Arial, sans-serif !important" }}
                 >
                   Overview
                 </Link>
@@ -292,6 +298,7 @@ const Header: React.FC = () => {
                   to="/about#mission-vision" 
                   className="block px-[10px] py-[10px] text-white hover:bg-[#4c58b5] transition-colors font-helveticaNeue text-[17px]"
                   onClick={() => handleAnchorClick('#mission-vision')}
+                  style={{ fontFamily: "HelveticaNeue, Helvetica, Arial, sans-serif !important" }}
                 >
                   Mission & Vision
                 </Link>
@@ -299,6 +306,7 @@ const Header: React.FC = () => {
                   to="/about#leadership" 
                   className="block px-[10px] py-[10px] text-white hover:bg-[#4c58b5] transition-colors font-helveticaNeue text-[17px]"
                   onClick={() => handleAnchorClick('#leadership')}
+                  style={{ fontFamily: "HelveticaNeue, Helvetica, Arial, sans-serif !important" }}
                 >
                   Leadership
                 </Link>
@@ -307,7 +315,7 @@ const Header: React.FC = () => {
             
             <NavLink 
               to="/academics" 
-              className={({isActive}) => `block py-[12px] px-0 text-[18px] font-body border-b border-[#3f4aa3] ${isActive ? 'text-white font-medium' : 'text-white'}`}
+              className={({isActive}) => `block py-[10px] px-0 text-[16px] font-body border-b border-[#3f4aa3] ${isActive ? 'text-white font-medium' : 'text-white'}`}
               onClick={closeMenu}
             >
               Academics
@@ -315,7 +323,7 @@ const Header: React.FC = () => {
             
             <NavLink 
               to="/admissions" 
-              className={({isActive}) => `block py-[12px] px-0 text-[18px] font-body border-b border-[#3f4aa3] ${isActive ? 'text-white font-medium' : 'text-white'}`}
+              className={({isActive}) => `block py-[10px] px-0 text-[16px] font-body border-b border-[#3f4aa3] ${isActive ? 'text-white font-medium' : 'text-white'}`}
               onClick={closeMenu}
             >
               Admissions
@@ -323,7 +331,7 @@ const Header: React.FC = () => {
             
             <NavLink 
               to="/campus" 
-              className={({isActive}) => `block py-[12px] px-0 text-[18px] font-body border-b border-[#3f4aa3] ${isActive ? 'text-white font-medium' : 'text-white'}`}
+              className={({isActive}) => `block py-[10px] px-0 text-[17px] font-body border-b border-[#3f4aa3] ${isActive ? 'text-white font-medium' : 'text-white'}`}
               onClick={closeMenu}
             >
               Campus
@@ -331,7 +339,7 @@ const Header: React.FC = () => {
             
             <div>
               <button
-                className="flex items-center justify-between w-full py-[12px] px-0 text-[18px] font-body border-b border-[#3f4aa3] text-white"
+                className="flex items-center justify-between w-full py-[10px] px-0 text-[17px] font-body border-b border-[#3f4aa3] text-white"
                 onClick={() => toggleMegaMenu('branches-mobile')}
               >
                 <span>Branches</span>
@@ -346,6 +354,7 @@ const Header: React.FC = () => {
                   to="/branches/bakhri" 
                   className="block px-[10px] py-[10px] text-white hover:bg-[#4c58b5] transition-colors font-helveticaNeue text-[17px]"
                   onClick={closeMenu}
+                  style={{ fontFamily: "HelveticaNeue, Helvetica, Arial, sans-serif !important" }}
                 >
                   Bakhri (Main)
                 </NavLink>
@@ -353,6 +362,7 @@ const Header: React.FC = () => {
                   to="/branches/begusarai" 
                   className="block px-[10px] py-[10px] text-white hover:bg-[#4c58b5] transition-colors font-helveticaNeue text-[17px]"
                   onClick={closeMenu}
+                  style={{ fontFamily: "HelveticaNeue, Helvetica, Arial, sans-serif !important" }}
                 >
                   Begusarai
                 </NavLink>
@@ -361,7 +371,7 @@ const Header: React.FC = () => {
             
             <NavLink 
               to="/news-events" 
-              className={({isActive}) => `block py-[12px] px-0 text-[18px] font-body border-b border-[#3f4aa3] ${isActive ? 'text-white font-medium' : 'text-white'}`}
+              className={({isActive}) => `block py-[10px] px-0 text-[17px] font-body border-b border-[#3f4aa3] ${isActive ? 'text-white font-medium' : 'text-white'}`}
               onClick={closeMenu}
             >
               News & Events
@@ -369,7 +379,7 @@ const Header: React.FC = () => {
             
             <NavLink 
               to="/contact" 
-              className={({isActive}) => `block py-[12px] px-0 text-[18px] font-body border-b border-[#3f4aa3] ${isActive ? 'text-white font-medium' : 'text-white'}`}
+              className={({isActive}) => `block py-[10px] px-0 text-[17px] font-body border-b border-[#3f4aa3] ${isActive ? 'text-white font-medium' : 'text-white'}`}
               onClick={closeMenu}
             >
               Contact
