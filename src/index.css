@@ -10,16 +10,36 @@
   --dark: #343a40;
 }
 
+@font-face {
+  font-family: 'HelveticaNeue';
+  src: url('https://db.onlinewebfonts.com/t/0a6ee448d1bd65c56f6cf256a7c6f20a.eot');
+  src: url('https://db.onlinewebfonts.com/t/0a6ee448d1bd65c56f6cf256a7c6f20a.eot?#iefix') format('embedded-opentype'),
+       url('https://db.onlinewebfonts.com/t/0a6ee448d1bd65c56f6cf256a7c6f20a.woff2') format('woff2'),
+       url('https://db.onlinewebfonts.com/t/0a6ee448d1bd65c56f6cf256a7c6f20a.woff') format('woff'),
+       url('https://db.onlinewebfonts.com/t/0a6ee448d1bd65c56f6cf256a7c6f20a.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 120px;
     overflow-y: auto;
     scrollbar-gutter: stable;
+    overscroll-behavior: none; /* Prevent overscroll/bounce effect */
+    height: 100%;
+    position: relative;
   }
   
   body {
-    @apply font-body text-gray-800 pt-[120px] overflow-x-hidden;
+    @apply font-body text-gray-800 overflow-x-hidden;
+    /* Remove the hardcoded pt-[120px] as we'll set it dynamically with JS */
+    overscroll-behavior: none; /* Prevent overscroll/bounce effect */
+    position: relative;
+    min-height: 100%;
+    touch-action: pan-x pan-y; /* Allows scrolling but prevents pull-to-refresh */
   }
   
   h1, h2, h3, h4, h5, h6 {

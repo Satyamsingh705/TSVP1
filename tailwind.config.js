@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
-export default {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+module.exports = {
+  content: [
+    './index.html',
+    './src/**/*.{js,ts,jsx,tsx,html,css}',
+    './public/**/*.html'
+  ],
   theme: {
     extend: {
       colors: {
@@ -38,6 +42,7 @@ export default {
       fontFamily: {
         heading: ['Montserrat', 'sans-serif'],
         body: ['Open Sans', 'sans-serif'],
+        helveticaNeue: ['HelveticaNeue', 'Helvetica', 'Arial', 'sans-serif'],
       },
       spacing: {
         '128': '32rem',

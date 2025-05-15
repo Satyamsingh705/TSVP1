@@ -1,15 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
-import { Menu, X, Phone, Mail, MapPin, ChevronDown } from 'lucide-react';
+import { Menu, X, Phone, Mail, MapPin, Plus, Minus } from 'lucide-react';
 import Logo from '../common/Logo';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMegaMenuOpen, setIsMegaMenuOpen] = useState('');
+  const [openMegaMenus, setOpenMegaMenus] = useState<string[]>([]);
   const location = useLocation();
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    // Prevent default touchmove behavior on document to stop overscroll
+    const preventPullToRefresh = (e: TouchEvent) => {
+      if (window.scrollY === 0 && e.touches[0].clientY > 0) {
+        e.preventDefault();
+      }
+    };
+
+    document.addEventListener('touchstart', preventPullToRefresh, { passive: false });
+
     const handleScroll = () => {
       if (window.scrollY > 50) {
         setIsScrolled(true);
@@ -19,11 +29,14 @@ const Header: React.FC = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('touchstart', preventPullToRefresh);
+    };
   }, []);
 
   useEffect(() => {
-    // Prevent body scroll when menu is open
     if (isMenuOpen) {
       document.body.style.overflow = 'hidden';
       document.body.style.height = '100vh';
@@ -33,20 +46,54 @@ const Header: React.FC = () => {
     }
   }, [isMenuOpen]);
 
+  // Update the header height effect to be more aggressive about preventing gaps
+  useEffect(() => {
+    const updateHeaderHeight = () => {
+      if (headerRef.current) {
+        const headerHeight = headerRef.current.offsetHeight;
+        document.body.style.paddingTop = `${headerHeight}px`;
+        
+        // Force the fixed position to be exact
+        headerRef.current.style.top = '0';
+        headerRef.current.style.left = '0';
+        headerRef.current.style.right = '0';
+      }
+    };
+
+    // Update immediately and after a short delay to catch any layout shifts
+    updateHeaderHeight();
+    const timeoutId = setTimeout(updateHeaderHeight, 100);
+    
+    window.addEventListener('resize', updateHeaderHeight);
+    
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('resize', updateHeaderHeight);
+    };
+  }, []);
+
+  // Add effect to update header height when scroll state changes
+  useEffect(() => {
+    if (headerRef.current) {
+      const headerHeight = headerRef.current.offsetHeight;
+      document.body.style.paddingTop = `${headerHeight}px`;
+    }
+  }, [isScrolled]);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   const closeMenu = () => {
     setIsMenuOpen(false);
-    setIsMegaMenuOpen('');
+    setOpenMegaMenus([]);
   };
 
   const toggleMegaMenu = (menu: string) => {
-    if (isMegaMenuOpen === menu) {
-      setIsMegaMenuOpen('');
+    if (openMegaMenus.includes(menu)) {
+      setOpenMegaMenus(openMegaMenus.filter(m => m !== menu));
     } else {
-      setIsMegaMenuOpen(menu);
+      setOpenMegaMenus([...openMegaMenus, menu]);
     }
   };
 
@@ -61,11 +108,14 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className={`fixed w-full top-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'glass-effect shadow-soft' : 'bg-white/90'
-    }`}>
+    <header 
+      ref={headerRef}
+      className={`fixed w-full top-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'shadow-soft' : ''
+      } bg-[#2f3a87]`}
+    >
       {/* Top Bar */}
-      <div className="bg-gradient-to-r from-primary to-primary-dark text-white py-2 text-sm">
+      <div className="bg-[#2f3a87] text-white py-2 text-sm">
         <div className="container-custom flex flex-wrap justify-between items-center">
           <div className="flex items-center space-x-6">
             <a href="tel:+910000000000" className="flex items-center hover:text-accent transition-colors">
@@ -83,46 +133,43 @@ const Header: React.FC = () => {
       </div>
       
       {/* Main Navigation */}
-      <nav className="py-4">
+      <nav className="py-4 bg-[#2f3a87]">
         <div className="container-custom flex justify-between items-center">
           <Link to="/" className="flex-shrink-0 transform hover:scale-105 transition-transform" onClick={closeMenu}>
-            <Logo />
+            <Logo color="white" />
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
-            <NavLink to="/" className={({isActive}) => `nav-link text-lg ${isActive ? 'active' : ''}`}>
+            <NavLink to="/" className={({isActive}) => `text-white text-[18px] font-body ${isActive ? 'font-medium' : ''}`}>
               Home
             </NavLink>
             
             <div className="relative group">
               <button 
-                className="nav-link text-lg flex items-center group"
-                onClick={() => toggleMegaMenu('about')}
+                className="text-white text-[18px] font-body flex items-center group"
               >
-                About <ChevronDown size={16} className="ml-1 group-hover:rotate-180 transition-transform duration-300" />
+                About
               </button>
               
-              <div className={`absolute left-0 mt-2 w-64 rounded-xl shadow-soft bg-white ring-1 ring-black/5 p-3 space-y-1 transition-all duration-300 transform ${
-                isMegaMenuOpen === 'about' ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0'
-              }`}>
+              <div className="absolute left-0 mt-2 w-64 bg-[#333399] shadow-md p-3 space-y-1 transition-all duration-300 transform opacity-0 invisible -translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 divide-y divide-white/20">
                 <Link 
                   to="/about" 
-                  className="block px-4 py-2 rounded-lg hover:bg-primary/5 transition-colors"
+                  className="block px-[10px] py-[10px] text-white hover:bg-[#4c58b5] transition-colors font-helveticaNeue text-[17px]"
                   onClick={closeMenu}
                 >
                   Overview
                 </Link>
                 <Link 
                   to="/about#mission-vision" 
-                  className="block px-4 py-2 rounded-lg hover:bg-primary/5 transition-colors"
+                  className="block px-[10px] py-[10px] text-white hover:bg-[#4c58b5] transition-colors font-helveticaNeue text-[17px]"
                   onClick={() => handleAnchorClick('#mission-vision')}
                 >
                   Mission & Vision
                 </Link>
                 <Link 
                   to="/about#leadership" 
-                  className="block px-4 py-2 rounded-lg hover:bg-primary/5 transition-colors"
+                  className="block px-[10px] py-[10px] text-white hover:bg-[#4c58b5] transition-colors font-helveticaNeue text-[17px]"
                   onClick={() => handleAnchorClick('#leadership')}
                 >
                   Leadership
@@ -130,39 +177,36 @@ const Header: React.FC = () => {
               </div>
             </div>
             
-            <NavLink to="/academics" className={({isActive}) => `nav-link text-lg ${isActive ? 'active' : ''}`}>
+            <NavLink to="/academics" className={({isActive}) => `text-white text-[18px] font-body ${isActive ? 'font-medium' : ''}`}>
               Academics
             </NavLink>
             
-            <NavLink to="/admissions" className={({isActive}) => `nav-link text-lg ${isActive ? 'active' : ''}`}>
+            <NavLink to="/admissions" className={({isActive}) => `text-white text-[18px] font-body ${isActive ? 'font-medium' : ''}`}>
               Admissions
             </NavLink>
             
-            <NavLink to="/campus" className={({isActive}) => `nav-link text-lg ${isActive ? 'active' : ''}`}>
+            <NavLink to="/campus" className={({isActive}) => `text-white text-[18px] font-body ${isActive ? 'font-medium' : ''}`}>
               Campus
             </NavLink>
             
             <div className="relative group">
               <button 
-                className="nav-link text-lg flex items-center group"
-                onClick={() => toggleMegaMenu('branches')}
+                className="text-white text-[18px] font-body flex items-center group"
               >
-                Branches <ChevronDown size={16} className="ml-1 group-hover:rotate-180 transition-transform duration-300" />
+                Branches
               </button>
               
-              <div className={`absolute left-0 mt-2 w-56 rounded-xl shadow-soft bg-white ring-1 ring-black/5 p-3 space-y-1 transition-all duration-300 transform ${
-                isMegaMenuOpen === 'branches' ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0'
-              }`}>
+              <div className="absolute left-0 mt-2 w-56 bg-[#333399] shadow-md p-3 space-y-1 transition-all duration-300 transform opacity-0 invisible -translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 divide-y divide-white/20">
                 <NavLink 
                   to="/branches/bakhri" 
-                  className="block px-4 py-2 rounded-lg hover:bg-primary/5 transition-colors"
+                  className="block px-[10px] py-[10px] text-white hover:bg-[#4c58b5] transition-colors font-helveticaNeue text-[17px]"
                   onClick={closeMenu}
                 >
                   Bakhri (Main)
                 </NavLink>
                 <NavLink 
                   to="/branches/begusarai" 
-                  className="block px-4 py-2 rounded-lg hover:bg-primary/5 transition-colors"
+                  className="block px-[10px] py-[10px] text-white hover:bg-[#4c58b5] transition-colors font-helveticaNeue text-[17px]"
                   onClick={closeMenu}
                 >
                   Begusarai
@@ -170,22 +214,22 @@ const Header: React.FC = () => {
               </div>
             </div>
             
-            <NavLink to="/news-events" className={({isActive}) => `nav-link text-lg ${isActive ? 'active' : ''}`}>
+            <NavLink to="/news-events" className={({isActive}) => `text-white text-[18px] font-body ${isActive ? 'font-medium' : ''}`}>
               News & Events
             </NavLink>
             
-            <NavLink to="/contact" className={({isActive}) => `nav-link text-lg ${isActive ? 'active' : ''}`}>
+            <NavLink to="/contact" className={({isActive}) => `text-white text-[18px] font-body ${isActive ? 'font-medium' : ''}`}>
               Contact
             </NavLink>
           </div>
 
-          <Link to="/admissions#application-form" className="hidden lg:inline-flex btn btn-primary shadow-soft hover:shadow-lg">
+          <Link to="/admission-inquiry.html" className="hidden lg:inline-flex btn bg-white text-[#2f3a87] font-medium shadow-soft hover:shadow-lg">
             Apply Now
           </Link>
 
           {/* Mobile Menu Button */}
           <button 
-            className="lg:hidden p-2 rounded-lg text-gray-700 hover:text-primary focus:outline-none hover:bg-primary/5 transition-colors"
+            className="lg:hidden p-2 rounded-lg text-white hover:bg-[#4c58b5] focus:outline-none transition-colors"
             onClick={toggleMenu}
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -201,14 +245,14 @@ const Header: React.FC = () => {
         onClick={closeMenu}
       >
         <div 
-          className={`absolute top-0 right-0 h-screen w-[80%] max-w-md bg-white overflow-y-auto transform transition-transform duration-500 ease-out ${
+          className={`absolute top-0 right-0 h-screen w-[80%] max-w-md bg-[#2f3a87] overflow-y-auto transform transition-transform duration-500 ease-out ${
             isMenuOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex justify-end p-4">
             <button 
-              className="p-2 rounded-lg text-gray-700 hover:text-primary hover:bg-primary/5 transition-colors"
+              className="p-2 rounded-lg text-white hover:bg-[#4c58b5] transition-colors"
               onClick={closeMenu}
             >
               <X size={24} />
@@ -218,7 +262,7 @@ const Header: React.FC = () => {
           <div className="px-4 pb-6 space-y-4">
             <NavLink 
               to="/" 
-              className={({isActive}) => `block py-3 text-lg border-b border-gray-200 ${isActive ? 'text-primary font-medium' : 'text-gray-700'}`}
+              className={({isActive}) => `block py-[12px] px-0 text-[18px] font-body border-b border-[#3f4aa3] ${isActive ? 'text-white font-medium' : 'text-white'}`}
               onClick={closeMenu}
             >
               Home
@@ -226,31 +270,34 @@ const Header: React.FC = () => {
             
             <div>
               <button
-                className="flex items-center justify-between w-full py-3 text-lg border-b border-gray-200 text-gray-700"
+                className="flex items-center justify-between w-full py-[12px] px-0 text-[18px] font-body border-b border-[#3f4aa3] text-white"
                 onClick={() => toggleMegaMenu('about-mobile')}
               >
                 <span>About</span>
-                <ChevronDown size={16} className={`transform transition-transform duration-300 ${isMegaMenuOpen === 'about-mobile' ? 'rotate-180' : ''}`} />
+                {openMegaMenus.includes('about-mobile') ? 
+                  <Minus size={16} className="text-white" /> : 
+                  <Plus size={16} className="text-white" />
+                }
               </button>
               
-              <div className={`pl-4 space-y-2 mt-2 ${isMegaMenuOpen === 'about-mobile' ? 'block' : 'hidden'}`}>
+              <div className={`pl-4 space-y-2 mt-2 bg-[#333399] rounded-md p-2 ${openMegaMenus.includes('about-mobile') ? 'block' : 'hidden'} divide-y divide-gray-500/30`}>
                 <Link 
                   to="/about" 
-                  className="block py-2 text-gray-700 hover:text-primary transition-colors"
+                  className="block px-[10px] py-[10px] text-white hover:bg-[#4c58b5] transition-colors font-helveticaNeue text-[17px]"
                   onClick={closeMenu}
                 >
                   Overview
                 </Link>
                 <Link 
                   to="/about#mission-vision" 
-                  className="block py-2 text-gray-700 hover:text-primary transition-colors"
+                  className="block px-[10px] py-[10px] text-white hover:bg-[#4c58b5] transition-colors font-helveticaNeue text-[17px]"
                   onClick={() => handleAnchorClick('#mission-vision')}
                 >
                   Mission & Vision
                 </Link>
                 <Link 
                   to="/about#leadership" 
-                  className="block py-2 text-gray-700 hover:text-primary transition-colors"
+                  className="block px-[10px] py-[10px] text-white hover:bg-[#4c58b5] transition-colors font-helveticaNeue text-[17px]"
                   onClick={() => handleAnchorClick('#leadership')}
                 >
                   Leadership
@@ -260,7 +307,7 @@ const Header: React.FC = () => {
             
             <NavLink 
               to="/academics" 
-              className={({isActive}) => `block py-3 text-lg border-b border-gray-200 ${isActive ? 'text-primary font-medium' : 'text-gray-700'}`}
+              className={({isActive}) => `block py-[12px] px-0 text-[18px] font-body border-b border-[#3f4aa3] ${isActive ? 'text-white font-medium' : 'text-white'}`}
               onClick={closeMenu}
             >
               Academics
@@ -268,7 +315,7 @@ const Header: React.FC = () => {
             
             <NavLink 
               to="/admissions" 
-              className={({isActive}) => `block py-3 text-lg border-b border-gray-200 ${isActive ? 'text-primary font-medium' : 'text-gray-700'}`}
+              className={({isActive}) => `block py-[12px] px-0 text-[18px] font-body border-b border-[#3f4aa3] ${isActive ? 'text-white font-medium' : 'text-white'}`}
               onClick={closeMenu}
             >
               Admissions
@@ -276,7 +323,7 @@ const Header: React.FC = () => {
             
             <NavLink 
               to="/campus" 
-              className={({isActive}) => `block py-3 text-lg border-b border-gray-200 ${isActive ? 'text-primary font-medium' : 'text-gray-700'}`}
+              className={({isActive}) => `block py-[12px] px-0 text-[18px] font-body border-b border-[#3f4aa3] ${isActive ? 'text-white font-medium' : 'text-white'}`}
               onClick={closeMenu}
             >
               Campus
@@ -284,24 +331,27 @@ const Header: React.FC = () => {
             
             <div>
               <button
-                className="flex items-center justify-between w-full py-3 text-lg border-b border-gray-200 text-gray-700"
+                className="flex items-center justify-between w-full py-[12px] px-0 text-[18px] font-body border-b border-[#3f4aa3] text-white"
                 onClick={() => toggleMegaMenu('branches-mobile')}
               >
                 <span>Branches</span>
-                <ChevronDown size={16} className={`transform transition-transform duration-300 ${isMegaMenuOpen === 'branches-mobile' ? 'rotate-180' : ''}`} />
+                {openMegaMenus.includes('branches-mobile') ? 
+                  <Minus size={16} className="text-white" /> : 
+                  <Plus size={16} className="text-white" />
+                }
               </button>
               
-              <div className={`pl-4 space-y-2 mt-2 ${isMegaMenuOpen === 'branches-mobile' ? 'block' : 'hidden'}`}>
+              <div className={`pl-4 space-y-2 mt-2 bg-[#333399] rounded-md p-2 ${openMegaMenus.includes('branches-mobile') ? 'block' : 'hidden'} divide-y divide-gray-500/30`}>
                 <NavLink 
                   to="/branches/bakhri" 
-                  className="block py-2 text-gray-700 hover:text-primary transition-colors"
+                  className="block px-[10px] py-[10px] text-white hover:bg-[#4c58b5] transition-colors font-helveticaNeue text-[17px]"
                   onClick={closeMenu}
                 >
                   Bakhri (Main)
                 </NavLink>
                 <NavLink 
                   to="/branches/begusarai" 
-                  className="block py-2 text-gray-700 hover:text-primary transition-colors"
+                  className="block px-[10px] py-[10px] text-white hover:bg-[#4c58b5] transition-colors font-helveticaNeue text-[17px]"
                   onClick={closeMenu}
                 >
                   Begusarai
@@ -311,7 +361,7 @@ const Header: React.FC = () => {
             
             <NavLink 
               to="/news-events" 
-              className={({isActive}) => `block py-3 text-lg border-b border-gray-200 ${isActive ? 'text-primary font-medium' : 'text-gray-700'}`}
+              className={({isActive}) => `block py-[12px] px-0 text-[18px] font-body border-b border-[#3f4aa3] ${isActive ? 'text-white font-medium' : 'text-white'}`}
               onClick={closeMenu}
             >
               News & Events
@@ -319,14 +369,14 @@ const Header: React.FC = () => {
             
             <NavLink 
               to="/contact" 
-              className={({isActive}) => `block py-3 text-lg border-b border-gray-200 ${isActive ? 'text-primary font-medium' : 'text-gray-700'}`}
+              className={({isActive}) => `block py-[12px] px-0 text-[18px] font-body border-b border-[#3f4aa3] ${isActive ? 'text-white font-medium' : 'text-white'}`}
               onClick={closeMenu}
             >
               Contact
             </NavLink>
             
             <div className="mt-6">
-              <Link to="/admissions#application-form" className="w-full btn btn-primary block text-center text-lg" onClick={closeMenu}>
+              <Link to="/admission-inquiry.html" className="w-full btn bg-white text-[#2f3a87] block text-center text-lg" onClick={closeMenu}>
                 Apply Now
               </Link>
             </div>
