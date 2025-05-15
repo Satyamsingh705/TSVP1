@@ -72,10 +72,6 @@ const Header: React.FC = () => {
               <Phone size={14} className="mr-1" />
               <span>+91 00000 00000</span>
             </a>
-            <a href="mailto:info@takshasilavidyapeeth.edu" className="flex items-center hover:text-accent transition-colors">
-              <Mail size={14} className="mr-1" />
-              <span>info@takshasilavidyapeeth.edu</span>
-            </a>
           </div>
           <div className="flex items-center">
             <div className="flex items-center hover:text-accent transition-colors">
