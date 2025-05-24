@@ -161,12 +161,12 @@ const FacultyPage: React.FC = () => {
   
   const openModal = (faculty: FacultyMember) => {
     setSelectedFaculty(faculty);
-    document.body.style.overflow = 'hidden';
+    document.body.classList.add('modal-open');
   };
   
   const closeModal = () => {
     setSelectedFaculty(null);
-    document.body.style.overflow = 'auto';
+    document.body.classList.remove('modal-open');
   };
   
   return (

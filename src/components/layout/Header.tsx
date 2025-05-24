@@ -11,14 +11,15 @@ const Header: React.FC = () => {
   const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    // Prevent default touchmove behavior on document to stop overscroll
+    // Less aggressive pull-to-refresh prevention that doesn't interfere with normal touch events
     const preventPullToRefresh = (e: TouchEvent) => {
-      if (window.scrollY === 0 && e.touches[0].clientY > 0) {
+      // Only prevent pull-to-refresh when at the top of the page and pulling down significantly
+      if (window.scrollY === 0 && e.touches[0].clientY > 70) {
         e.preventDefault();
       }
     };
 
-    document.addEventListener('touchstart', preventPullToRefresh, { passive: false });
+    document.addEventListener('touchstart', preventPullToRefresh, { passive: true });
 
     const handleScroll = () => {
       if (window.scrollY > 50) {
@@ -38,11 +39,9 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-      document.body.style.height = '100vh';
+      document.body.classList.add('modal-open');
     } else {
-      document.body.style.overflow = '';
-      document.body.style.height = '';
+      document.body.classList.remove('modal-open');
     }
   }, [isMenuOpen]);
 

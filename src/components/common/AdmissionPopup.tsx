@@ -3,7 +3,26 @@ import { Link } from 'react-router-dom';
 import { X } from 'lucide-react';
 
 const AdmissionPopup: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+  
+  useEffect(() => {
+    // Delay popup showing to avoid immediate interaction on page load
+    const timer = setTimeout(() => {
+      setIsOpen(true);
+      if (isOpen) {
+        document.body.classList.add('modal-open');
+      }
+    }, 2000);
+    
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+  
+  const closePopup = () => {
+    setIsOpen(false);
+    document.body.classList.remove('modal-open');
+  };
 
   if (!isOpen) return null;
 
@@ -11,7 +30,7 @@ const AdmissionPopup: React.FC = () => {
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70">
       <div className="relative max-w-2xl w-full bg-white rounded-xl overflow-hidden shadow-2xl">
         <button 
-          onClick={() => setIsOpen(false)}
+          onClick={closePopup}
           className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 z-10"
         >
           <X size={24} />
@@ -53,14 +72,14 @@ const AdmissionPopup: React.FC = () => {
             <Link 
               to="/admissions" 
               className="flex-1 btn btn-primary text-center"
-              onClick={() => setIsOpen(false)}
+              onClick={closePopup}
             >
               Apply Now
             </Link>
             <Link 
               to="/contact" 
               className="flex-1 btn btn-outline text-center"
-              onClick={() => setIsOpen(false)}
+              onClick={closePopup}
             >
               Contact Us
             </Link>

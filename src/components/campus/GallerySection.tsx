@@ -93,12 +93,13 @@ const GallerySection: React.FC = () => {
   
   const openLightbox = (src: string, alt: string) => {
     setSelectedImage({ src, alt });
-    document.body.style.overflow = 'hidden';
+    // Don't completely disable scrolling, just prevent it
+    document.body.classList.add('modal-open');
   };
   
   const closeLightbox = () => {
     setSelectedImage(null);
-    document.body.style.overflow = 'auto';
+    document.body.classList.remove('modal-open');
   };
   
   return (
