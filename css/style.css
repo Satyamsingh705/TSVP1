@@ -1,0 +1,24 @@
+/* Improve touch targets for mobile */
+@media (max-width: 768px) {
+    a, button, .clickable, [onclick] {
+        min-height: 44px;
+        min-width: 44px;
+        padding: 12px;
+        margin: 5px 0;
+        display: inline-block;
+    }
+    
+    /* Remove hover effects on touch devices - they can cause issues */
+    a:hover, button:hover, .clickable:hover {
+        pointer-events: none;
+    }
+}
+
+/* Fix for iOS touch delay */
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    touch-action: manipulation;
+}
+
+/* Existing styles */
+/* Add your existing CSS styles here */
