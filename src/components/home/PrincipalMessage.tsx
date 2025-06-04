@@ -134,7 +134,7 @@ const PrincipalMessage: React.FC = () => {
                   <img 
                     src="https://images.pexels.com/photos/5212339/pexels-photo-5212339.jpeg?auto=compress&cs=tinysrgb&w=1600" 
                     alt="Principal" 
-                    className="w-32 h-32 rounded-lg object-cover shadow-md transform hover:scale-105 transition-transform duration-300"
+                    className="w-40 h-40 rounded-lg object-cover shadow-md transform hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-primary/10 rounded-lg -z-10"></div>
                 </div>
@@ -158,11 +158,12 @@ const PrincipalMessage: React.FC = () => {
             </div>
           </div>
 
-          {/* Thought of the Day */}
+          {/* Thought of the Day with more realistic quote marks */}
           <div className="flex items-center">
             <div className="bg-primary text-white p-8 rounded-lg relative overflow-hidden w-full transform hover:scale-[1.02] transition-transform duration-300">
-              <div className="absolute -top-4 -left-4 opacity-10">
-                <Quote size={120} />
+              {/* Replace abstract Quote icon with more realistic quote marks */}
+              <div className="absolute -top-4 -left-4 opacity-10 text-9xl font-serif leading-none">
+                "
               </div>
               
               <div className="relative z-10">
@@ -170,9 +171,9 @@ const PrincipalMessage: React.FC = () => {
                 <div className="w-24 h-1 bg-accent mb-8"></div>
                 
                 <blockquote className="text-2xl font-heading mb-6 relative">
-                  <div className="absolute -left-6 top-0 text-accent/20 text-6xl font-serif">"</div>
+                  <div className="absolute -left-6 top-0 text-accent/30 text-6xl font-serif">"</div>
                   <p className="relative z-10">{thought.content}</p>
-                  <div className="absolute -right-4 bottom-0 text-accent/20 text-6xl font-serif">"</div>
+                  <div className="absolute -right-4 bottom-0 text-accent/30 text-6xl font-serif">"</div>
                 </blockquote>
                 <cite className="block text-right text-accent font-medium">- {thought.author}</cite>
               </div>

@@ -47,14 +47,14 @@ const Leadership: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {leadershipTeam.map(leader => (
                 <div key={leader.id} className="card overflow-hidden flex flex-col md:flex-row">
-                  <div className="md:w-1/3">
+                  <div className="md:w-2/5">
                     <img 
                       src={leader.image} 
                       alt={leader.name} 
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <div className="p-6 md:w-2/3">
+                  <div className="p-6 md:w-3/5">
                     <h3 className="text-xl font-semibold">{leader.name}</h3>
                     <p className="text-primary mb-4">{leader.position}</p>
                     <p className="text-gray-600">{leader.bio}</p>
