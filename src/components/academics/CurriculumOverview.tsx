@@ -1,4 +1,5 @@
 import React from 'react';
+import SectionTitle from '../common/SectionTitle';
 import { BookOpen, FileText, Brain, Award, Target, Users } from 'lucide-react';
 
 const curriculumFeatures = [
@@ -48,36 +49,33 @@ const curriculumFeatures = [
 
 const CurriculumOverview: React.FC = () => {
 	return (
-		<section className="section bg-white">
+		<section className="section pt-24 pb-16 bg-gradient-to-b from-gray-50 to-white relative">
 			<div className="container-custom">
-				<div className="text-center mb-16">
-					<h2 className="text-3xl md:text-4xl font-bold mb-4">
-						Our Academic Approach
-					</h2>
-					<div className="w-24 h-1 bg-accent mx-auto mb-6"></div>
-					<p className="max-w-2xl mx-auto text-lg text-gray-600">
-						At Takshashila Vidyapith, we believe in providing a balanced
-						education that develops intellectual, physical, emotional, and
-						social abilities.
-					</p>
-				</div>
+				<div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+					<SectionTitle
+						title="ACADEMIC APPROACH"
+						subtitle="At Takshashila Vidyapith, we believe in providing a balanced education that develops intellectual, physical, emotional, and social abilities."
+					/>
 
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-					{curriculumFeatures.map((feature) => (
-						<div key={feature.id} className="card p-6">
-							<div className="flex items-start">
-								<div className="mr-4">{feature.icon}</div>
-								<div>
-									<h3 className="text-xl font-semibold mb-2">
-										{feature.title}
-									</h3>
-									<p className="text-gray-600">
-										{feature.description}
-									</p>
+					<div className="bg-white rounded-xl shadow-lg pt-20 pb-12 sm:pb-16 px-5 sm:px-8 md:px-10 border border-gray-100">
+						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+							{curriculumFeatures.map((feature) => (
+								<div key={feature.id} className="card p-6">
+									<div className="flex items-start">
+										<div className="mr-4">{feature.icon}</div>
+										<div>
+											<h3 className="text-xl font-semibold mb-2">
+												{feature.title}
+											</h3>
+											<p className="text-gray-600">
+												{feature.description}
+											</p>
+										</div>
+									</div>
 								</div>
-							</div>
+							))}
 						</div>
-					))}
+					</div>
 				</div>
 			</div>
 		</section>

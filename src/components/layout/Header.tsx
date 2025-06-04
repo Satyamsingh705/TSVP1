@@ -138,7 +138,7 @@ const Header: React.FC = () => {
                 About
               </button>
               
-              <div className="absolute left-0 mt-2 w-64 bg-[#434398EB] shadow-md p-3 space-y-1 transition-all duration-300 transform opacity-0 invisible -translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 divide-y divide-white/20">
+              <div className="absolute left-0 mt-2 w-64 bg-[#434398EB] shadow-md p-3 transition-all duration-300 transform opacity-0 invisible -translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0">
                 <Link 
                   to="/about" 
                   className="block px-[10px] py-[8px] text-white hover:bg-[#4c58b5] transition-colors font-helveticaNeue text-[15px]"
@@ -147,6 +147,7 @@ const Header: React.FC = () => {
                 >
                   Overview
                 </Link>
+                <hr className="border-t border-white/40 my-1 w-full" />
                 <Link 
                   to="/about#mission-vision" 
                   className="block px-[10px] py-[8px] text-white hover:bg-[#4c58b5] transition-colors font-helveticaNeue text-[15px]"
@@ -155,6 +156,7 @@ const Header: React.FC = () => {
                 >
                   Mission & Vision
                 </Link>
+                <hr className="border-t border-white/40 my-1 w-full" />
                 <Link 
                   to="/about#leadership" 
                   className="block px-[10px] py-[8px] text-white hover:bg-[#4c58b5] transition-colors font-helveticaNeue text-[15px]"
@@ -185,7 +187,7 @@ const Header: React.FC = () => {
                 Branches
               </button>
               
-              <div className="absolute left-0 mt-2 w-56 bg-[#434398EB] shadow-md p-3 space-y-1 transition-all duration-300 transform opacity-0 invisible -translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 divide-y divide-white/20">
+              <div className="absolute left-0 mt-2 w-56 bg-[#434398EB] shadow-md p-3 transition-all duration-300 transform opacity-0 invisible -translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0">
                 <NavLink 
                   to="/branches/bakhri" 
                   className="block px-[10px] py-[8px] text-white hover:bg-[#4c58b5] transition-colors font-helveticaNeue text-[15px]"
@@ -194,6 +196,7 @@ const Header: React.FC = () => {
                 >
                   Bakhri (Main)
                 </NavLink>
+                <hr className="border-t border-white/40 my-1 w-full" />
                 <NavLink 
                   to="/branches/begusarai" 
                   className="block px-[10px] py-[8px] text-white hover:bg-[#4c58b5] transition-colors font-helveticaNeue text-[15px]"
@@ -262,7 +265,7 @@ const Header: React.FC = () => {
                 }
               </button>
               
-              <div className={`pl-4 space-y-2 mt-2 bg-[#434398EB] rounded-md p-2 ${openMegaMenus.includes('about-mobile') ? 'block' : 'hidden'} divide-y divide-gray-500/30`}>
+              <div className={`pl-4 mt-2 bg-[#434398EB] rounded-md p-2 relative ${openMegaMenus.includes('about-mobile') ? 'block' : 'hidden'}`}>
                 <Link 
                   to="/about" 
                   className="block px-[10px] py-[10px] text-white hover:bg-[#4c58b5] transition-colors font-body text-[17px]"
@@ -270,6 +273,7 @@ const Header: React.FC = () => {
                 >
                   Overview
                 </Link>
+                <hr className="border-t-2 border-white/50 -mx-2 w-[calc(100%+16px)]" />
                 <Link 
                   to="/about#mission-vision" 
                   className="block px-[10px] py-[10px] text-white hover:bg-[#4c58b5] transition-colors font-body text-[17px]"
@@ -277,6 +281,7 @@ const Header: React.FC = () => {
                 >
                   Mission & Vision
                 </Link>
+                <hr className="border-t-2 border-white/50 -mx-2 w-[calc(100%+16px)]" />
                 <Link 
                   to="/about#leadership" 
                   className="block px-[10px] py-[10px] text-white hover:bg-[#4c58b5] transition-colors font-body text-[17px]"
@@ -323,7 +328,7 @@ const Header: React.FC = () => {
                 }
               </button>
               
-              <div className={`pl-4 space-y-2 mt-2 bg-[#434398EB] rounded-md p-2 ${openMegaMenus.includes('branches-mobile') ? 'block' : 'hidden'} divide-y divide-gray-500/30`}>
+              <div className={`pl-4 mt-2 bg-[#434398EB] rounded-md p-2 ${openMegaMenus.includes('branches-mobile') ? 'block' : 'hidden'}`}>
                 <NavLink 
                   to="/branches/bakhri" 
                   className="block px-[10px] py-[10px] text-white hover:bg-[#4c58b5] transition-colors font-body text-[17px]"
@@ -331,6 +336,7 @@ const Header: React.FC = () => {
                 >
                   Bakhri (Main)
                 </NavLink>
+                <hr className="border-t-2 border-white/50 -mx-2 w-[calc(100%+16px)]" />
                 <NavLink 
                   to="/branches/begusarai" 
                   className="block px-[10px] py-[10px] text-white hover:bg-[#4c58b5] transition-colors font-body text-[17px]"

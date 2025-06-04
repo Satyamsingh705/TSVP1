@@ -1,4 +1,5 @@
 import React from 'react';
+import SectionTitle from '../common/SectionTitle';
 
 const leadershipTeam = [
   {
@@ -33,33 +34,35 @@ const leadershipTeam = [
 
 const Leadership: React.FC = () => {
   return (
-    <section className="section bg-white" id="leadership">
+    <section className="section pt-24 pb-16 bg-gradient-to-b from-gray-50 to-white relative" id="leadership">
       <div className="container-custom">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Leadership Team</h2>
-          <div className="w-24 h-1 bg-accent mx-auto mb-6"></div>
-          <p className="max-w-2xl mx-auto text-lg text-gray-600">
-            Meet the dedicated leaders who guide our institution with vision, expertise, and commitment.
-          </p>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {leadershipTeam.map(leader => (
-            <div key={leader.id} className="card overflow-hidden flex flex-col md:flex-row">
-              <div className="md:w-1/3">
-                <img 
-                  src={leader.image} 
-                  alt={leader.name} 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-6 md:w-2/3">
-                <h3 className="text-xl font-semibold">{leader.name}</h3>
-                <p className="text-primary mb-4">{leader.position}</p>
-                <p className="text-gray-600">{leader.bio}</p>
-              </div>
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+          <SectionTitle 
+            title="LEADERSHIP TEAM" 
+            subtitle="Meet the dedicated leaders who guide our institution with vision, expertise, and commitment."
+            id="leadership"
+          />
+          
+          <div className="bg-white rounded-xl shadow-lg pt-20 pb-12 sm:pb-16 px-5 sm:px-8 md:px-10 border border-gray-100">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {leadershipTeam.map(leader => (
+                <div key={leader.id} className="card overflow-hidden flex flex-col md:flex-row">
+                  <div className="md:w-1/3">
+                    <img 
+                      src={leader.image} 
+                      alt={leader.name} 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="p-6 md:w-2/3">
+                    <h3 className="text-xl font-semibold">{leader.name}</h3>
+                    <p className="text-primary mb-4">{leader.position}</p>
+                    <p className="text-gray-600">{leader.bio}</p>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </section>
