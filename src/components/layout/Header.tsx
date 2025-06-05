@@ -239,7 +239,7 @@ const Header: React.FC = () => {
         onClick={closeMenu}
       >
         <div 
-          className={`absolute top-0 left-0 h-screen w-[65%] max-w-[300px] bg-[#333399] overflow-y-auto transform transition-transform duration-500 ease-out ${
+          className={`absolute top-0 left-0 h-screen w-[80%] max-w-[350px] bg-[#333399] overflow-y-auto transform transition-transform duration-500 ease-out ${
             isMenuOpen ? 'translate-x-0' : 'translate-x-[-100%]'
           }`}
           onClick={(e) => e.stopPropagation()}
