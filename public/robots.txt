@@ -3,4 +3,4 @@ Disallow: /private/
 Disallow: /admin/
 Allow: /public/
 
-Sitemap: https://takshasila.netlify.app/sitemap_new.xml
+Sitemap: https://takshasila.netlify.app/sitemap.xml
