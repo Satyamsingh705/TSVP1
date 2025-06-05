@@ -1,0 +1,10 @@
+# Allow all web crawlers
+User-agent: *
+Allow: /
+
+# Explicitly allow Googlebot
+User-agent: Googlebot
+Allow: /
+
+# Point to sitemap
+Sitemap: https://takshasila.netlify.app/sitemap.xml
