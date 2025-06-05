@@ -6,5 +6,5 @@ Allow: /
 User-agent: Googlebot
 Allow: /
 
-# Point to sitemap
-Sitemap: https://takshasila.netlify.app/sitemap.xml
+# Sitemap location
+Sitemap: https://username.github.io/takshasila/mysite.xml
