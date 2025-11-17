@@ -131,12 +131,12 @@ const PrincipalMessage: React.FC = () => {
               
               <div className="flex items-start gap-6">
                 <div className="relative">
-                  <img 
-                    src="https://images.pexels.com/photos/5212339/pexels-photo-5212339.jpeg?auto=compress&cs=tinysrgb&w=1600" 
-                    alt="Principal" 
-                    className="w-40 h-40 rounded-lg object-cover shadow-md transform hover:scale-105 transition-transform duration-300"
+                  <img
+                    src="https://images.pexels.com/photos/5212339/pexels-photo-5212339.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                    alt="Principal"
+                    className="w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 rounded-lg object-cover shadow-md transform hover:scale-105 transition-transform duration-300"
                   />
-                  <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-primary/10 rounded-lg -z-10"></div>
+                  <div className="absolute -bottom-8 -right-8 w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 bg-primary/10 rounded-lg -z-10"></div>
                 </div>
                 <div>
                   <p className="text-gray-700 mb-6 italic">
@@ -150,7 +150,7 @@ const PrincipalMessage: React.FC = () => {
                   </p>
                   <div className="text-right relative">
                     <div className="absolute -bottom-2 -right-2 w-32 h-12 bg-accent/10 rounded-lg -z-10"></div>
-                    <p className="font-semibold text-primary relative z-10">Mrs. Sunita Sharma</p>
+                    <p className="font-semibold text-primary relative z-10">Akhilesh Jaiswal</p>
                     <p className="text-sm text-gray-600 relative z-10">Principal</p>
                   </div>
                 </div>
